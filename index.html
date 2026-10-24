@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in - UI Practice</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f0f4fc;
+  font-family: Arial, sans-serif;
+  color: #202124;
+}
+.container {
+  max-width: 1050px;
+  margin: 100px auto 15px;
+  padding: 40px;
+  background: white;
+  border-radius: 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  min-height: 370px;
+}
+.logo {
+  font-size: 42px;
+  font-weight: bold;
+}
+h1 { font-size: 36px; font-weight: 400; }
+input {
+  width: 100%;
+  padding: 17px;
+  border: 1px solid #747775;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-top: 75px;
+}
+a { color: #0b57d0; font-size: 14px; }
+button {
+  background: #0b57d0;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 28px;
+  cursor: pointer;
+}
+.actions {
+  margin-top: 55px;
+  display: flex;
+  justify-content: flex-end;
+}
+footer {
+  max-width: 1050px;
+  margin: auto;
+  padding: 12px;
+  font-size: 12px;
+  color: #555;
+}
+@media(max-width:700px) {
+  .container {
+    margin: 25px 12px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 25px;
+  }
+  input { margin-top: 10px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <section>
+    <div class="logo">
+      <span style="color:#4285f4">G</span><span style="color:#ea4335">o</span><span style="color:#fbbc05">o</span><span style="color:#4285f4">g</span><span style="color:#34a853">l</span><span style="color:#ea4335">e</span>
+    </div>
+    <h1>Sign in</h1>
+    <p>UI design practice</p>
+  </section>
+  <section>
+    <input type="text" placeholder="Email or phone">
+    <p style="font-size:13px;color:#666">
+      Demo only — do not enter real credentials.
+    </p>
+    <div class="actions">
+      <button type="button" onclick="saveEmail()">Next</button>
+    </div>
+  </section>
+</div>
+<footer>Educational demonstration — Not affiliated with Google</footer>
+<button type="button" onclick="downloadData()">
+  Download Data
+</button>
+
+<script>
+function downloadData() {
+  const value = localStorage.getItem("practiceEmail") || "";
+  const csv = "Demo Entry\n" +
+    '"' + value.replaceAll('"', '""') + '"';
+
+  const blob = new Blob([csv], {type: "text/csv"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "practice-data.csv";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
+<script>
+function saveEmail() {
+  const email = document.querySelector("input").value;
+
+  if (email.trim() === "") {
+    alert("Please enter an email");
+    return;
+  }
+
+  localStorage.setItem("practiceEmail", email);
+  alert("Saved on this computer!");
+}
+</script>
